@@ -4,8 +4,6 @@
     by Eric Dunton
  */
 
-require 'InterfaceMain.php';
-
 interface INutritionixFacade 
 {
     public function search($item,$brand,$offset);

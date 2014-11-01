@@ -1,6 +1,6 @@
 <?php
 
-require 'Main.php';
+require_once 'Main.php';
 
 use Display\Page as Page;
 
@@ -14,5 +14,4 @@ EOD;
 $page->setBodyFromString($mybody);
 
 echo $page->getPage();
-
 ?>

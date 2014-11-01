@@ -1,6 +1,6 @@
 <?php namespace Display;
 
-require 'DisplayMain.php';
+//require 'DisplayMain.php';
 
 use \Interfaces\IPage as IPage;
 use \Interfaces\INavBar as INavBar;

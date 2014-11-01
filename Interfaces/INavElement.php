@@ -4,8 +4,6 @@
     by Eric Dunton
  */
 
-require 'InterfaceMain.php';
-
 interface INavElement 
 {
     public function setLabel($setLabel);

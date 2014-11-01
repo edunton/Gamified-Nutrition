@@ -4,8 +4,6 @@
     by Eric Dunton
  */
 
-require 'InterfaceMain.php';
-
 interface IPage 
 {
     public function setNavBar(INavBar $bar);

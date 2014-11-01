@@ -4,8 +4,6 @@
 * by Eric Dunton
 */
 
-require "FacadeMain.php";
-
 use Interfaces\INutritionixFacade as INutritionixFacade;
 use Data\Nutritionix as API;
 

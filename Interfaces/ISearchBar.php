@@ -4,8 +4,6 @@
     by Eric Dunton
  */
 
-require 'InterfaceMain.php';
-
 interface ISearchBar 
 {
     public function search($item,$brand);

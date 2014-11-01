@@ -4,8 +4,6 @@
     by Eric Dunton
  */
 
-require 'InterfaceMain.php';
-
 interface INavBar 
 {
     public function addElement(INavElement $element);
