@@ -6,7 +6,7 @@
 
 require 'InterfaceMain.php';
 
-interface INutritionixFacade; 
+interface INutritionixFacade 
 {
     public function search($item,$brand,$offset);
     public function getItem($item_id);

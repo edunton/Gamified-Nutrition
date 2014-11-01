@@ -1,13 +1,9 @@
-<?php
+<?php namespace Display;
 
 require 'DisplayMain.php';
 
-use Interfaces\IPage as IPage;
-
-class SearchPage extends Page
-{
-    
-}
+use \Interfaces\IPage as IPage;
+use \Interfaces\INavBar as INavBar;
 
 class Page implements IPage
 {
@@ -17,7 +13,7 @@ class Page implements IPage
 
     public function __construct($title)
     {
-        $this->$pageBody = '';
+        $this->pageBody = '';
         $this->head = <<<EOD
 <html>
     <head>
@@ -28,14 +24,14 @@ class Page implements IPage
     <body>
         <div class="container">
 EOD;
-        $this->foot = '</div></body></html>'
+        $this->foot = '</div></body></html>';
     }
 
     public function setNavBar(INavBar $bar)
     {
         //void for now
     }
-    public function setBodyFromSting($body)
+    public function setBodyFromString($body)
     {
         $this->pageBody = $body;
     }
@@ -46,7 +42,7 @@ EOD;
         $this->pageBody = $this->pageBody.ob_get_contents();
         ob_end_clean();
     }
-    public function getPage($page)
+    public function getPage()
     {
         return $this->head.$this->pageBody.$this->foot;
     }

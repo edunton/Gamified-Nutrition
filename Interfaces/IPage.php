@@ -9,8 +9,8 @@ require 'InterfaceMain.php';
 interface IPage 
 {
     public function setNavBar(INavBar $bar);
-    public function setBodyFromSting($body);
+    public function setBodyFromString($body);
     public function setBodyFromCallable(callable $call);
-    public function getPage($page);
+    public function getPage();
 }
 ?>
