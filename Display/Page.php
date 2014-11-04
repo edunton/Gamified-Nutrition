@@ -18,7 +18,7 @@ class Page implements IPage
 <html>
     <head>
         <title>$title</title>
-        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="styles/bootstrap.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
@@ -33,7 +33,7 @@ EOD;
     }
     public function setBodyFromString($body)
     {
-        $this->pageBody = $body;
+        $this->pageBody = $this->pageBody.$body;
     }
     public function setBodyFromCallable(callable $call)
     {

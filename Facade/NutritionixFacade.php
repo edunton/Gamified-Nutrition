@@ -1,4 +1,4 @@
-<?php
+<?php namespace Facade;
 /*
 * Wrapper library of Nutritionix API
 * by Eric Dunton
@@ -19,11 +19,22 @@ class NutritionixFacade implements INutritionixFacade
 
     public function search($item,$brand,$offset)
     {
-        $result = $api->search($item,$brand,$offset);
+        $results = $this->api->search($item,$brand,$offset);
 
-        if (isset($results->hits))
+        //Get ID, name and brand from hit object
+        $get = function($hit)
         {
-            return array_map('get_results_from_hit', $results->hits);
+            $fields = $hit->fields;
+            $ret = array();
+            $ret['item_id'] = $fields->item_id;
+            $ret['item_name'] = $fields->item_name;
+            $ret['brand_name'] = $fields->brand_name;
+            return $ret;
+        };
+        //print_r($results);
+        if (isset($results->hits) && isset($results->total))
+        {
+            return array('total'=>$results->total, 'hits'=>array_map($get, $results->hits));
         }
         else
         {
@@ -34,17 +45,6 @@ class NutritionixFacade implements INutritionixFacade
     public function getItem($item_id)
     {
         return $this->api->getItem($item_id,'id');
-    }
-
-    //Get ID, name and brand from hit object
-    private static function get_results_from_hit($hit)
-    {
-        $fields = $hit->fields;
-        $ret = array();
-        $ret['item_id'] = $fields->item_id;
-        $ret['item_name'] = $fields->item_name;
-        $ret['brand_name'] = $fields->brand_name;
-        return $ret;
     }
 }
 

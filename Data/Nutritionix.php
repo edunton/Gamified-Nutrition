@@ -407,7 +407,7 @@ class Nutritionix
 }
 
 
-class NutritionixException extends Exception
+class NutritionixException extends \Exception
 {
 	/**
 	 * Array mapping error codes to messages
