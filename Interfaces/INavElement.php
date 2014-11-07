@@ -1,6 +1,6 @@
 <?php namespace Interfaces;
 /*
-    Interface for Navagation Buttons
+    Interface for Navigation Buttons
     by Eric Dunton
  */
 

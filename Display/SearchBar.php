@@ -19,29 +19,15 @@ class SearchBar implements ISearchBar
         $prev_brand = is_string($prev_brand) ? 'value="'.$prev_brand.'"' : '';
         return <<<EOD
 <div $id $class >
-<h1>Search</h1>
-            <form action="$this->search_dest" method="post">
-                <div class="row">
-                    <div class="col-md-2">
-                        Item: 
-                    </div>
-                    <div class="col-md-2">
-                        <input type="text" name="item" $prev_item>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-md-2">
-                        Brand (optional):
-                    </div>
-                    <div class="col-md-2">
-                       <input type="text" name="brand" $prev_brand> 
-                    </div>
-                </div> 
-                <input type="hidden" name="offset" value="0">
-                <br>
-                <input type="submit" name="Search">
-            </form>
+    <form action="$this->search_dest" method="post" class="navbar-form navbar-left" role="search">
+
+        <div class="form-group">
+            <input type="text" name="item" $prev_item placeholder="Item">
+            <input type="text" name="brand" $prev_brand placeholder="Brand (optional)">
+        </div>
+        <input type="hidden" name="offset" value="0">
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
 </div>
 EOD;
     }
