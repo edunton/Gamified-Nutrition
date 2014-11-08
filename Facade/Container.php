@@ -19,7 +19,7 @@ abstract class Container implements \Iterator{
     //returns true for default action, false to go to alter_set
     abstract protected function handle_set($name,$value);
     //returns alternate value for called-upon field
-    abstract protected function alter_set($name);
+    abstract protected function alter_set($name,$value);
     //returns true for default action, false to go to alter_get
     abstract protected function handle_get($name);
     //returns true for default action, false to go to alter_set
@@ -52,10 +52,14 @@ abstract class Container implements \Iterator{
 
     public function __set($name, $value)
     {
-        if(array_key_exists($name, $this->data) && $this->handle_set($name,$value))
-            $this->data[$name] = $value;
+        if(!array_key_exists($name, $this->data))
+            throw new \Exception('Cannot set value "'.$name.'" not in the fields');
+        else if ($this->handle_set($name,$value)){
+            if($value == null) $this->data[$name] = $this->blank;
+            else $this->data[$name] = $value;
+        }
         else
-            $this->data[$name] = $this->alter_set($name);
+            $this->data[$name] = $this->alter_set($name,$value);
     }
 
     public function __get($name)

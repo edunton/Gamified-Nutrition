@@ -11,7 +11,7 @@ class SearchBar implements ISearchBar
         $this->search_dest = $search_output;
     }
     
-    public function display($id,$class,$prev_item,$prev_brand)
+    public function display($id=null,$class=null,$prev_item=null,$prev_brand=null)
     {
         $id = is_string($id) ? 'id="'.$id.'"' : "";
         $class = is_string($class) ? 'class="'.$class.'"' : "";
@@ -26,7 +26,7 @@ class SearchBar implements ISearchBar
             <input type="text" name="brand" $prev_brand placeholder="Brand (optional)">
         </div>
         <input type="hidden" name="offset" value="0">
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-default">Search</button>
     </form>
 </div>
 EOD;

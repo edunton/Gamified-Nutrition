@@ -20,6 +20,10 @@ if(DEBUG)
 
 class ItemInfo extends LockableContainer{
 
+    public function __construct(){
+        parent::__construct('NULL');
+    }
+
     protected function fields()
     {
         // Do Not Change Once in Use

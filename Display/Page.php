@@ -46,6 +46,7 @@ class Page implements IPage
     </head>
     <body>
         <div class="container">
+            $this->bar
             <div class="page-header">
                 <h1>$header <small>$sub_header</small></h1>
             </div>
