@@ -6,7 +6,7 @@ include('login.php'); // Includes Login Script
 <html>
 <head>
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="loginsignup.css">
+<link rel="stylesheet" href="login.css">
 
 <title>Login page</title>
 </head>
