@@ -30,7 +30,7 @@ include('login.php'); // Includes Login Script
       
       <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>  
       <span class="help-block"></span>
-      <p><a href="/new-customer/" class="btn btn-info btn-block">Register now!</a></p>
+      <p><a href="signuppage.html" class="btn btn-info btn-block">Register now!</a></p>
        
     </form>
   </div>
