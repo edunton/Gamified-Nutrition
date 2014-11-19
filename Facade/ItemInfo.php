@@ -21,7 +21,7 @@ if(DEBUG)
 class ItemInfo extends LockableContainer{
 
     public function __construct(){
-        parent::__construct('NULL');
+        parent::__construct(0);
     }
 
     protected function fields()
