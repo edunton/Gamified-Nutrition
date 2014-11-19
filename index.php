@@ -4,6 +4,10 @@ require_once 'Main.php';
 
 use Display\Page as Page;
 use Display\SearchBar as SB;
+use Display\navBar as NB;
+use Display\navElement as NE;
+
+use Facade\UserProfileFacade as UPF;
 
 $sb = new SB('search.php');
 $displaySB = $sb->display();
@@ -20,4 +24,5 @@ EOD;
 $p = new Page('Gamified Nutrition','Welcome to Gamified Nutrition','Now in Beta');
 $p->setBodyFromString($page);
 echo $p->getPage();
+
 ?>

@@ -1,44 +1,49 @@
 <?php
-include('login.php'); // Includes Login Script
-?>
+/**
+ * Created by PhpStorm.
+ * User: Eric
+ * Date: 11/12/2014
+ * Time: 8:46 AM
+ */
 
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="login.css">
+namespace Display;
 
-<title>Login page</title>
-</head>
-<body>
-<div class="wrapper">
+use Facade\UserProfileFacade as UPF;
 
-    <form class="form-signin">       
-      <h2 class="form-signin-heading">Plz login!</h2>
-      
-     	<div class="form-group">
-      <label for="username" class="control-label">Username</label>
-      <input type="text" class="form-control" name="username" id="username" placeholder="Email Address" required="" autofocus="" />
-      <span class="help-block"></span>
-      </div>
-      
-      <div class="form-group">
-      <label for="password" class="control-label">Password</label>
-      <input type="password" class="form-control" name="password" placeholder="Password" required=""/>
-      <span class="help-block"></span>
-      </div>
-      
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>  
-      <span class="help-block"></span>
-      <p><a href="signuppage.html" class="btn btn-info btn-block">Register now!</a></p>
-       
-    </form>
-  </div>
-  
-<span><?php echo $error; ?></span>
+class LoginPage extends Page{
+    public function __construct()
+    {
+        if(count($_POST) > 0 && isset($_POST['username']) && isset($_POST['password']))
+        {
+            $name = $_POST['username'];
+            $pass = $_POST['password'];
+            $correct = UPF::check_user_pass_combo( $name, $pass );
+            if($correct)
+            {
+                $user = UPF::get_user_by_name($name);
+                UPF::set_and_gen_cookie($user->UserID);
+                $this->setUser($user->UserID);
+                header("Location: index.php");
+                die();
+            }
+            else{
+                parent::__construct('Gamified Nutrition','Login Failed','try again');
+            }
+        }
+        else
+        {
+            parent::__construct('Gamified Nutrition','Gamified Nutrition','Eat Healthier Now');
+        }
 
-</form>
+        $page = <<<EOD
+<div class="jumbotron">
+  <h1>A Message to Eaters Everywhere</h1>
+  <p>Start Eating Healthy Now!</p>
+  <button class="btn btn-primary btn-lg" href="#signup" data-toggle="modal" data-target=".bs-modal-sm">Sign In/Register</button>
+  <br>
 </div>
-</div>
-</body>
-</html>
+EOD;
+
+        $this->setBodyFromString($page);
+    }
+} 

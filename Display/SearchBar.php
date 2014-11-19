@@ -22,7 +22,7 @@ class SearchBar implements ISearchBar
     <form action="$this->search_dest" method="post" class="navbar-form navbar-left" role="search">
 
         <div class="form-group">
-            <input type="text" name="item" $prev_item placeholder="Item">
+            <input type="text" name="item" $prev_item placeholder="Item" required="">
             <input type="text" name="brand" $prev_brand placeholder="Brand (optional)">
         </div>
         <input type="hidden" name="offset" value="0">

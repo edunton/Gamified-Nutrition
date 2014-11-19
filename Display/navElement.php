@@ -1,10 +1,14 @@
 <?php
+namespace Display;
+use \Interfaces\INavElement;
+define("LEFT",'left');
+define("RIGHT",'right');
 
-class NavElement {
+class NavElement implements INavElement{
 	
 	private $label;
 	private $link; 
-	private $position; // left or right on the nav bar
+	private $position = LEFT; // left or right on the nav bar
 	
 	public function __construct($label, $link, $position) {
 		$this->setLabel($label);
@@ -12,27 +16,27 @@ class NavElement {
 		$this->setPosition($position);
 	}
 	
-	private function setLabel($newLabel) {
+	public function setLabel($newLabel) {
 		$this->label = $newLabel;
 	}
 	
-	private function getLabel() {
+	public function getLabel() {
 		return $this->label;
 	}
 	
-	private function setLink($newLink) {
+	public function setLink($newLink) {
 		$this->link = $newLink;
 	}
 	
-	private function getLink() {
+	public function getLink() {
 		return $this->link;
 	}
 	
-	private function setPosition($newPos) {
-		return $this->$newPos;
+	public function setPosition($newPos) {
+		 $this->position = $newPos;
 	}
 	
-	private function getPosition() {
+	public function getPosition() {
 		return $this->position;
 	}
 }
