@@ -21,22 +21,45 @@ class database
         }
     }
 
+    public function userProgress()
+    {
+        try {
+            $results = $db->query("SELECT caloryGoal FROM userProfiles");
+            $totalCalory = $db -> query("SELECT sum(calories) as caloriesSum from userHistory");
+        } 
+        catch(Exception $e){
+            echo "Data could not be retrieved";
+            exit;
+        }
+
+        $caloryGoalRow = $results->fetchAll(PDO::FETCH_ASSOC); //calory goal of current user
+        $calorySumResult = $totalCalory ->fetchAll(PDO::FETCH_ASSOC);//calorySum of current user
+
+        $caloryGoal = $caloryGoalRow[0]["caloryGoal"];
+        $calorySum = $calorySumResult[0]["caloriesSum"];
+
+        $caloryDifference = $caloryGoal - $calorySum;
+
+        $caloryMessage = "";
+        if ($caloryDifference > 0){
+            $caloryMessage = "You can eat more";
+        } else if ($caloryDifference == 0){
+            $caloryMessage = "You reached your target today! Congratulations!";
+
+        } else {
+            $caloryMessage = "You ate " .$caloryDifference. " too many calories!";
+        }
+        return $caloryMessage;
+
+    }
+
     public function PDO()
     {
         return $this->db;
     }
-}
+    
+} 
 
-//Test a query
-// try {
-// 	$results = $db->query("SELECT itemID FROM nutritionData");
-// } catch(Exception $e){
-// 	echo "Data could not be retrieved";
-// 	exit;
-// }
 
-// // echo "<pre>";
-// $food = $results->fetchAll(PDO:: FETCH_ASSOC);
-// var_dump($food);
 
 
