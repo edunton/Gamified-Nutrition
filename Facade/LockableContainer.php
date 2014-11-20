@@ -50,7 +50,7 @@ abstract class LockableContainer extends Container
         return false;
     }
 
-    protected function alter_set($name)
+    protected function alter_set($name,$value)
     {
         $trace = debug_backtrace();
         trigger_error(

@@ -4,6 +4,7 @@
 
 use \Interfaces\IPage as IPage;
 use \Interfaces\INavBar as INavBar;
+use \Facade\UserProfileFacade as UPF;
 
 class Page implements IPage
 {
@@ -12,45 +13,44 @@ class Page implements IPage
     private $header_add_on = '';
     private $bar = '';
     private $foot = '';
+    private $userID = null;
 
-    private static function set_up_header($header_params)
+
+    public function __construct($title, $header, $sub_header, $head_params = null, $extra = '')
     {
-        $retStr = '';
-        if(is_array($header_params))
+        if(isset($_COOKIE['user']))
         {
-            $styles = function($s){return '<link rel="stylesheet" href="'.$s.'">';};
-            $scripts = function($s){return '<script type="text/javascript" src="'.$s.'">';};
-            if(isset($header_params['styles']))
+            $user = UPF::get_user_by_cookie($_COOKIE['user']);
+            if($user)
             {
-                $retStr .= implode(array_map($styles,$header_params['styles']));
-            }
-            if(isset($header_params['scripts']))
-            {
-                $retStr .= implode(array_map($scripts,$header_params['scripts']));
+                $this->userID = $user->UserID;
             }
         }
-        return $retStr;
-    }
-    public function __construct($title, $header, $sub_header, $head_params = null)
-    {
+
         if($head_params != null)
             $this->header_add_on = self::set_up_header($head_params);
+        $this->stdBar();
         $this->pageBody = '';
         $this->head = <<<EOD
 <html>
     <head>
         <title>$title</title>
-        <link rel="stylesheet" href="styles/bootstrap.css">
+        <link rel="stylesheet" href="styles/bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="styles/bootstrap/css/bootstrap-theme.css">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="styles/bootstrap/js/bootstrap.js"></script>
         $this->header_add_on
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
+        $this->bar
         <div class="container">
             <div class="page-header">
                 <h1>$header <small>$sub_header</small></h1>
             </div>
 EOD;
-        $this->foot = '</div></body></html>';
+        $modal = LoginModal::display('login.php','signup.php');
+        $this->foot = "</div>$modal $extra</body></html>";
     }
 
     public function setNavBar(INavBar $bar)
@@ -71,6 +71,57 @@ EOD;
     public function getPage()
     {
         return $this->head.$this->pageBody.$this->foot;
+    }
+
+    public function getUser()
+    {
+        return $this->userID;
+    }
+
+    public function setUser($id)
+    {
+        $this->userID = $id;
+    }
+
+    private static function set_up_header($header_params)
+    {
+        $retStr = '';
+        if(is_array($header_params))
+        {
+            $styles = function($s){return '<link rel="stylesheet" href="'.$s.'">';};
+            $scripts = function($s){return '<script type="text/javascript" src="'.$s.'">';};
+            if(isset($header_params['styles']))
+            {
+                $retStr .= implode(array_map($styles,$header_params['styles']));
+            }
+            if(isset($header_params['scripts']))
+            {
+                $retStr .= implode(array_map($scripts,$header_params['scripts']));
+            }
+        }
+        return $retStr;
+    }
+    private function stdBar()
+    {
+        $ne1 = new navElement('left','#',LEFT);
+        $ne2 = new navElement('right','#',RIGHT);
+
+        if($this->userID != null)
+        {
+            //echo $this->userID;
+            $user = UPF::get_user_by_id($this->userID);
+            $nb = new navBar($user->UserName);
+            $nb->addElement($ne1);
+            $nb->addElement($ne2);
+            $this->bar = $nb->display();
+        }
+        else
+        {
+            $nb = new navBar();
+            $nb->addElement($ne1);
+            $nb->addElement($ne2);
+            $this->bar = $nb->display();
+        }
     }
 }
 

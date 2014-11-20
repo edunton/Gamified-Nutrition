@@ -1,18 +1,30 @@
 <?php
-require 'config.php';
+namespace Data\SQL;
 
-try {
-	$db = new PDO("mysql:host=localhost; dbname = gamifiedNutrition; port=8889","root");
-	// $db = new PDO("mysql:host= " DB_HOST; "dbname = " DB_NAME;,"DB_USER");
+class database
+{
+    private $db;
+    public function __construct()
+    {
+        try
+        {
+            $this->db = new \PDO("mysql:host=localhost; dbname = gamifiedNutrition; port=3306", "root");
+            $this->db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            $this->db->exec("SET NAMES 'utf8'");
+            $this->db->exec("USE gamifiedNutrition");
+        }
+        catch
+        (\Exception $e) {
+            echo "Could not connect to the database";
+            echo $e->getMessage();
+            exit;
+        }
+    }
 
-	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	$db->exec("SET NAMES 'utf8'");
-	$db->exec("USE gamifiedNutrition");
-	echo "successful connection";
-
-} catch (Exception $e) {
-	echo "Could not connect to the database";
-	exit;
+    public function PDO()
+    {
+        return $this->db;
+    }
 }
 
 //Test a query
