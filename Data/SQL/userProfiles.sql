@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 08, 2014 at 08:57 PM
+-- Generation Time: Nov 20, 2014 at 02:32 AM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -31,8 +31,16 @@ CREATE TABLE IF NOT EXISTS `userProfiles` (
   `firstName` varchar(40) CHARACTER SET utf32 COLLATE utf32_bin NOT NULL,
   `lastName` varchar(40) CHARACTER SET utf32 COLLATE utf32_bin NOT NULL,
   `username` varchar(40) CHARACTER SET utf32 COLLATE utf32_bin NOT NULL,
-  `password` varchar(40) CHARACTER SET utf32 COLLATE utf32_bin NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `password` varchar(40) CHARACTER SET utf32 COLLATE utf32_bin NOT NULL,
+  `caloryGoal` int(6) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `userProfiles`
+--
+
+INSERT INTO `userProfiles` (`userID`, `firstName`, `lastName`, `username`, `password`, `caloryGoal`) VALUES
+(1, 'Kim', 'Polanun', 'test@bu.edu', '123456', 2000);
 
 --
 -- Indexes for dumped tables
@@ -52,7 +60,7 @@ ALTER TABLE `userProfiles`
 -- AUTO_INCREMENT for table `userProfiles`
 --
 ALTER TABLE `userProfiles`
-MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
