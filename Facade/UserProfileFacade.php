@@ -67,6 +67,11 @@ class UserProfileFacade extends FacadeBase implements IUserProfileFacade{
         return self::construct_user($p);
     }
 
+    public static function set_user_calories_goal($userID,$goal)
+    {
+        self::simple_exec("UPDATE userprofiles SET caloryGoal=$goal WHERE userID='$userID'",false);
+    }
+
     public static function get_user_by_cookie($cookie)
     {
         $p = self::simple_exec("SELECT up.userID AS userID, up.userName AS userName from userprofiles up
@@ -92,6 +97,7 @@ class UserProfileFacade extends FacadeBase implements IUserProfileFacade{
             $uinfo = new UserInfo();
             if(isset($p[0]['username'])) $uinfo->UserName = $p[0]['username'];
             if(isset($p[0]['userID'])) $uinfo->UserID = $p[0]['userID'];
+            if(isset($p[0]['caloryGoal'])) $uinfo->CalorieGoal = $p[0]['caloryGoal'];
             $uinfo->lock();
             return $uinfo;
         }

@@ -30,15 +30,9 @@ abstract class LockableContainer extends Container
         return true;
     }
 
-    protected function alt_get($name)
+    protected function alter_get($name)
     {
-        $trace = debug_backtrace();
-        trigger_error(
-            'Undefined property via __get(): ' . $name .
-            ' in ' . $trace[0]['file'] .
-            ' on line ' . $trace[0]['line'],
-            E_USER_NOTICE);
-        return null;
+        throw new \Exception("cannot get '$name', not field in object");
     }
 
     protected function handle_isset($name)
@@ -59,9 +53,5 @@ abstract class LockableContainer extends Container
             ' on line ' . $trace[0]['line'],
             E_USER_NOTICE);
         throw new \Exception("Property '$name' not defined in LockableContainer");
-    }
-    protected function alter_get($name)
-    {
-        //not implemented
     }
 } 
