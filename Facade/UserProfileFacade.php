@@ -11,7 +11,7 @@ namespace Facade;
 use \Interfaces\IUserProfileFacade;
 use \Data\SQL\database as DB;
 
-class UserProfileFacade implements IUserProfileFacade{
+class UserProfileFacade extends FacadeBase implements IUserProfileFacade{
     public static function is_available_user_name($name)
     {
         $db = new DB();
@@ -92,23 +92,10 @@ class UserProfileFacade implements IUserProfileFacade{
             $uinfo = new UserInfo();
             if(isset($p[0]['username'])) $uinfo->UserName = $p[0]['username'];
             if(isset($p[0]['userID'])) $uinfo->UserID = $p[0]['userID'];
+            $uinfo->lock();
             return $uinfo;
         }
 
         return false;
-    }
-
-    private static function simple_exec($sql, $fetch = true)
-    {
-        $db = new DB();
-        $pdo = $db->PDO();
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-        if($fetch)
-        {
-            $p = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-            return $p;
-        }
-        return true;
     }
 } 

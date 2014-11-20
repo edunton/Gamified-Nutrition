@@ -23,7 +23,10 @@ class UserHistory extends LockableContainer{
             'userID',
             'servings',
             'historyDate',
-            'lastEditDate'
+            'lastEditDate',
+            'itemName',
+            'brandName',
+            'calories',
         );
     }
 

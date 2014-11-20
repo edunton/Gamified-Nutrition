@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 19, 2014 at 04:22 PM
+-- Generation Time: Nov 20, 2014 at 10:06 PM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `itemhistory` (
   `userID` varchar(40) CHARACTER SET utf32 COLLATE utf32_bin NOT NULL,
   `servings` int(4) NOT NULL,
   `historyDate` date NOT NULL,
-  `lastEditDate` date NOT NULL
+  `lastEditDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
