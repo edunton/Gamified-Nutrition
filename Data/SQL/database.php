@@ -24,8 +24,8 @@ class database
     public function userProgress()
     {
         try {
-            $results = $db->query("SELECT caloryGoal FROM userProfiles");
-            $totalCalory = $db -> query("SELECT sum(calories) as caloriesSum from userHistory");
+            $results = $this->$db->query("SELECT caloryGoal FROM userProfiles");
+            $totalCalory = $this->$db -> query("SELECT sum(calories) as caloriesSum from userHistory");
         } 
         catch(Exception $e){
             echo "Data could not be retrieved";
