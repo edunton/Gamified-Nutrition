@@ -21,24 +21,27 @@ class database
         }
     }
 
-    public function userProgress()
+    public function userProgress($db)
     {
         try {
-            $results = $this->$db->query("SELECT caloryGoal FROM userProfiles");
-            $totalCalory = $this->$db -> query("SELECT sum(calories) as caloriesSum from userHistory");
+            $userID = $db->query("SELECT userID FROM userProfiles");
+            $userIDObject = $userID->fetchAll();
+            $userID = $userIDObject[0]["userID"];
+
+            $caloryTarget = $db->query("SELECT targetLimit FROM user_Targets");
+            $caloryGoalRow = $caloryTarget->fetchAll(); //calory goal of current user
+            $targetLimit = $caloryGoalRow[0]["targetLimit"];
+
+            $totalCalory = $db->query("SELECT sum(totalCalories) as caloriesSum from itemHistory WHERE historyDate > ADDDATE(NOW(), INTERVAL -1 WEEK) and userID=".$userID);
+            $calorySumResult = $totalCalory ->fetchAll();//calorySum of current user
+            $calorySum = $calorySumResult[0]["caloriesSum"];
         } 
         catch(Exception $e){
             echo "Data could not be retrieved";
             exit;
         }
 
-        $caloryGoalRow = $results->fetchAll(PDO::FETCH_ASSOC); //calory goal of current user
-        $calorySumResult = $totalCalory ->fetchAll(PDO::FETCH_ASSOC);//calorySum of current user
-
-        $caloryGoal = $caloryGoalRow[0]["caloryGoal"];
-        $calorySum = $calorySumResult[0]["caloriesSum"];
-
-        $caloryDifference = $caloryGoal - $calorySum;
+        $caloryDifference = $targetLimit - $calorySum;
 
         $caloryMessage = "";
         if ($caloryDifference > 0){
@@ -49,7 +52,8 @@ class database
         } else {
             $caloryMessage = "You ate " .$caloryDifference. " too many calories!";
         }
-        return $caloryMessage;
+        
+        $writeMessage = $db->query("INSERT INTO `gamifiedNutrition`.`userProgress` (`userProgressID`, `userID`, `message`, `date`) VALUES (NULL, '$userID', '$caloryMessage', CURRENT_TIMESTAMP);");
 
     }
 

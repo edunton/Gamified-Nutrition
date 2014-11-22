@@ -2,8 +2,8 @@
 -- version 4.2.7.1
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 20, 2014 at 10:06 PM
+-- Host: localhost
+-- Generation Time: Nov 22, 2014 at 05:00 AM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `gamifiednutrition`
+-- Database: `gamifiedNutrition`
 --
 
 -- --------------------------------------------------------
@@ -31,9 +31,29 @@ CREATE TABLE IF NOT EXISTS `itemhistory` (
   `itemID` varchar(40) CHARACTER SET utf32 COLLATE utf32_bin NOT NULL,
   `userID` varchar(40) CHARACTER SET utf32 COLLATE utf32_bin NOT NULL,
   `servings` int(4) NOT NULL,
+  `totalCalories` int(6) NOT NULL,
   `historyDate` date NOT NULL,
-  `lastEditDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `lastEditDate` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `itemhistory`
+--
+
+INSERT INTO `itemhistory` (`historyID`, `itemID`, `userID`, `servings`, `totalCalories`, `historyDate`, `lastEditDate`) VALUES
+('', '3', '1', 1, 1111, '2014-11-01', '2014-11-21'),
+('1', '1', '1', 1, 1500, '2014-11-21', '2014-11-21'),
+('2', '2', '1', 1, 1500, '2014-11-21', '2014-11-21');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `itemhistory`
+--
+ALTER TABLE `itemhistory`
+ ADD PRIMARY KEY (`historyID`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

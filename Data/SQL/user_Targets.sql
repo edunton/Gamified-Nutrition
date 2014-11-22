@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 22, 2014 at 04:59 AM
+-- Generation Time: Nov 22, 2014 at 05:02 AM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -23,26 +23,42 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `achievementLog`
+-- Table structure for table `user_Targets`
 --
 
-CREATE TABLE IF NOT EXISTS `achievementLog` (
-  `achievementLogID` int(11) NOT NULL,
-  `userID` int(11) NOT NULL,
-  `achievementType` varchar(20) NOT NULL,
-  `Time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `user_Targets` (
+`userTargetID` int(5) NOT NULL,
+  `userID` int(5) NOT NULL,
+  `typeID` int(5) NOT NULL,
+  `targetLimit` int(5) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `user_Targets`
+--
+
+INSERT INTO `user_Targets` (`userTargetID`, `userID`, `typeID`, `targetLimit`) VALUES
+(1, 1, 1, 2000);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `achievementLog`
+-- Indexes for table `user_Targets`
 --
-ALTER TABLE `achievementLog`
- ADD PRIMARY KEY (`achievementLogID`);
+ALTER TABLE `user_Targets`
+ ADD PRIMARY KEY (`userTargetID`);
 
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `user_Targets`
+--
+ALTER TABLE `user_Targets`
+MODIFY `userTargetID` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
