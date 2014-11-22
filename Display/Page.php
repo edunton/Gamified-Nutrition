@@ -89,7 +89,7 @@ EOD;
         if(is_array($header_params))
         {
             $styles = function($s){return '<link rel="stylesheet" href="'.$s.'">';};
-            $scripts = function($s){return '<script type="text/javascript" src="'.$s.'">';};
+            $scripts = function($s){return '<script type="text/javascript" src="'.$s.'"></script>';};
             if(isset($header_params['styles']))
             {
                 $retStr .= implode(array_map($styles,$header_params['styles']));
