@@ -32,6 +32,9 @@ class database
             $caloryGoalRow = $caloryTarget->fetchAll(); //calory goal of current user
             $targetLimit = $caloryGoalRow[0]["targetLimit"];
 
+            $dailyCaloryIntake = $db->query ("SELECT sum(totalCalories) FROM `itemhistory` WHERE userID = 1 AND historyDate = DATE(NOW())");
+            $dailyCaloryIntakeResult = $dailyCaloryIntake->fetchAll();
+
             $totalCalory = $db->query("SELECT sum(totalCalories) as caloriesSum from itemHistory WHERE historyDate > ADDDATE(NOW(), INTERVAL -1 WEEK) and userID=".$userID);
             $calorySumResult = $totalCalory ->fetchAll();//calorySum of current user
             $calorySum = $calorySumResult[0]["caloriesSum"];
@@ -40,6 +43,7 @@ class database
             echo "Data could not be retrieved";
             exit;
         }
+
 
         $caloryDifference = $targetLimit - $calorySum;
 
@@ -52,8 +56,10 @@ class database
         } else {
             $caloryMessage = "You ate " .$caloryDifference. " too many calories!";
         }
+
+        return $caloryMessage;
         
-        $writeMessage = $db->query("INSERT INTO `gamifiedNutrition`.`userProgress` (`userProgressID`, `userID`, `message`, `date`) VALUES (NULL, '$userID', '$caloryMessage', CURRENT_TIMESTAMP);");
+        // $writeMessage = $db->query("INSERT INTO `gamifiedNutrition`.`userProgress` (`userProgressID`, `userID`, `message`, `date`) VALUES (NULL, '$userID', '$caloryMessage', CURRENT_TIMESTAMP);");
 
     }
 
@@ -63,7 +69,6 @@ class database
     }
     
 } 
-
 
 
 
