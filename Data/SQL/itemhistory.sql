@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 22, 2014 at 05:00 AM
+-- Generation Time: Nov 23, 2014 at 01:55 AM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -41,9 +41,10 @@ CREATE TABLE IF NOT EXISTS `itemhistory` (
 --
 
 INSERT INTO `itemhistory` (`historyID`, `itemID`, `userID`, `servings`, `totalCalories`, `historyDate`, `lastEditDate`) VALUES
-('', '3', '1', 1, 1111, '2014-11-01', '2014-11-21'),
 ('1', '1', '1', 1, 1500, '2014-11-21', '2014-11-21'),
-('2', '2', '1', 1, 1500, '2014-11-21', '2014-11-21');
+('1233', '100', '1', 1, 1111, '2014-11-22', '2014-11-22'),
+('2', '2', '1', 1, 1500, '2014-11-21', '2014-11-21'),
+('89', '1', '1', 1, 100, '2014-11-22', '2014-11-22');
 
 --
 -- Indexes for dumped tables

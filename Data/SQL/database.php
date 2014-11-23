@@ -24,13 +24,14 @@ class database
     public function userProgress($db)
     {
         try {
-            $userID = $db->query("SELECT userID FROM userProfiles");
-            $userIDObject = $userID->fetchAll();
-            $userID = $userIDObject[0]["userID"];
-
+            $userID = 1;//changes according to user --> Change this to the current user
             $caloryTarget = $db->query("SELECT targetLimit FROM user_Targets");
             $caloryGoalRow = $caloryTarget->fetchAll(); //calory goal of current user
             $targetLimit = $caloryGoalRow[0]["targetLimit"];
+
+            $dailyCaloryIntake = $db->query ("SELECT sum(totalCalories) as dailyCaloriesSum FROM `itemhistory` WHERE userID = $userID AND historyDate = DATE(NOW())");
+            $dailyCaloryIntakeResult = $dailyCaloryIntake->fetchAll();
+            $dailyCaloryIntake = $dailyCaloryIntakeResult[0]["dailyCaloriesSum"];
 
             $totalCalory = $db->query("SELECT sum(totalCalories) as caloriesSum from itemHistory WHERE historyDate > ADDDATE(NOW(), INTERVAL -1 WEEK) and userID=".$userID);
             $calorySumResult = $totalCalory ->fetchAll();//calorySum of current user
@@ -40,21 +41,45 @@ class database
             echo "Data could not be retrieved";
             exit;
         }
-
-        $caloryDifference = $targetLimit - $calorySum;
+        $upperbound = $targetLimit * 1.05;
+        // echo($upperbound);
+        $lowerbound = $targetLimit * 0.90;
+        // echo($lowerbound);
+        // $caloryDifference = $targetLimit - $dailyCaloryIntake;
+        // echo($caloryDifference);
+        // echo($dailyCaloryIntake);
 
         $caloryMessage = "";
-        if ($caloryDifference > 0){
-            $caloryMessage = "You can eat more";
-        } else if ($caloryDifference == 0){
-            $caloryMessage = "You reached your target today! Congratulations!";
+        $randomID = md5(time());
 
-        } else {
-            $caloryMessage = "You ate " .$caloryDifference. " too many calories!";
-        }
+            if ($dailyCaloryIntake > $upperbound){
+                $caloryMessage = "Over the upper bound";
+                $updateProgress = $db->query("UPDATE `userProgress` SET `progress`=0 WHERE userID = $userID");
+
+            } else if ($lowerbound < $dailyCaloryIntake && $dailyCaloryIntake < $upperbound){
+                $updateProgress = $db->query("UPDATE `userProgress` SET `progress`=`progress`+1 WHERE userID = $userID");
+                $caloryMessage = "You're within the specified range";
+                $progress = $db->query("SELECT progress FROM `userProgress` WHERE userID = $userID");
+                $progressRow = $progress->fetchAll();
+                $progress = $progressRow[0]["progress"];
+                if ($progress % 7 == 0){
+                    $writeAchievement = $db->query("INSERT INTO `gamifiedNutrition`.`achievementLog` (`achievementLogID`, `userID`, `achievementType`, `Time`) VALUES ('$randomID', '$userID', 'weeklyGoal', CURRENT_TIMESTAMP);");
+                }
+
+
+            } else if ($dailyCaloryIntake < $lowerbound) {
+                $caloryMessage = "You can eat more";
+                $updateProgress = $db->query("UPDATE `userProgress` SET `progress`=`progress`+1 WHERE userID = $userID");
+                $progress = $db->query("SELECT progress FROM `userProgress` WHERE userID = $userID");
+                $progressRow = $progress->fetchAll();
+                $progress = $progressRow[0]["progress"];
+                if ($progress % 7 == 0){
+                    $writeAchievement = $db->query("INSERT INTO `gamifiedNutrition`.`achievementLog` (`achievementLogID`, `userID`, `achievementType`, `Time`) VALUES ('$randomID', '$userID', 'weeklyGoal', CURRENT_TIMESTAMP);");
+                }
+            }
+
+        return $caloryMessage; //just to test
         
-        $writeMessage = $db->query("INSERT INTO `gamifiedNutrition`.`userProgress` (`userProgressID`, `userID`, `message`, `date`) VALUES (NULL, '$userID', '$caloryMessage', CURRENT_TIMESTAMP);");
-
     }
 
     public function PDO()
@@ -63,7 +88,6 @@ class database
     }
     
 } 
-
 
 
 
