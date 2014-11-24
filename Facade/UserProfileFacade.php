@@ -26,7 +26,7 @@ class UserProfileFacade extends FacadeBase implements IUserProfileFacade{
     {
         $db = new DB();
         $pdo = $db->PDO();
-        $stmt = $pdo->prepare("INSERT INTO userprofiles (userID, userName, passwordHash) VALUES (:id,:usern,:passhash)");
+        $stmt = $pdo->prepare("INSERT INTO userprofiles (userID, userName, password) VALUES (:id,:usern,:passhash)");
         $stmt->bindParam(':id',$id,\PDO::PARAM_STR);
         $stmt->bindParam(':usern',$usern,\PDO::PARAM_STR);
         $stmt->bindParam(':passhash',$passhash,\PDO::PARAM_STR);
@@ -40,11 +40,11 @@ class UserProfileFacade extends FacadeBase implements IUserProfileFacade{
     {
         $db = new DB();
         $pdo = $db->PDO();
-        $stmt = $pdo->prepare("SELECT passwordHash FROM userprofiles where userName = '".htmlspecialchars($name)."'");
+        $stmt = $pdo->prepare("SELECT password FROM userprofiles where userName = '".htmlspecialchars($name)."'");
         $stmt->execute();
         $p = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        if(count($p) == 0 || !isset($p[0]['passwordHash'])) return false;
-        return password_verify($pass,$p[0]['passwordHash']);
+        if(count($p) == 0 || !isset($p[0]['password'])) return false;
+        return password_verify($pass,$p[0]['password']);
     }
 
     public static function get_user_by_name($name)
@@ -69,7 +69,10 @@ class UserProfileFacade extends FacadeBase implements IUserProfileFacade{
 
     public static function set_user_calories_goal($userID,$goal)
     {
-        self::simple_exec("UPDATE userprofiles SET caloryGoal=$goal WHERE userID='$userID'",false);
+        $md = self::gen_random();
+        self::simple_exec("UPDATE userprofiles SET caloryGoal=$goal WHERE userID='$userID';
+                          DELETE FROM user_Targets WHERE userID=$userID;
+                          INSERT INTO user_Targets (userID,typeID,targetLimit) VALUES ('$userID',1,'$goal');",false);
     }
 
     public static function get_user_by_cookie($cookie)
