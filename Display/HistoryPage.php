@@ -23,7 +23,7 @@ class HistoryPage extends Page
         $confirmation = false; // Whether we need a confirmation for successfully adding a history
         // confirmation message
         $msg = <<<EOD
-                    Congratulations! You have successfully added a new record to your history!</br>Keep searching if you want to add more.
+                    <div class="alert alert-success" role="alert">Congratulations! You have successfully added a new record to your history!</br>Keep searching if you want to add more.</div>
 
 EOD;
 
@@ -61,7 +61,7 @@ EOD;
 
                 } else {
 
-                    echo '<div class="error">No history so far!</div>';
+                    echo '<div class="alert alert-info" role="alert">No history so far!</div>';
                 }
         };
 
