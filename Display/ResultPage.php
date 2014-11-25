@@ -4,11 +4,13 @@
  * User: Eric
  * Date: 11/6/2014
  * Time: 10:36 PM
+ * Edit by Sida : 'Add to history' function
  */
 
 namespace Display;
 
 use Facade\NutritionixFacade as API;
+
 
 class ResultPage extends Page{
     public function __construct($item_id)
@@ -30,6 +32,24 @@ class ResultPage extends Page{
             echo "<li class='list-group-item'>carbs: $info->total_carbohydrate</li>";
             echo"</ul>";
         };
+
+        $form = <<<EOD
+        <form class="form-inline" role="form" method="post" action="history.php">
+            <div class="form-group">
+                <label for="servings">Servings:</label>
+                <input type="text" class="form-control" name="servings" placeholder="Enter servings">
+            </div>
+            <div class="form-group">
+                <label for="date">Date:</label>
+                <input type="date" class="form-control" name="date">
+            </div>
+            <button type="submit" class="btn btn-default">Add to history </button>
+            <input type="hidden" name="itemID" value="%s">
+        </form>
+
+EOD;
+        $form = sprintf($form,$item_id);
         $this->setBodyFromCallable($lmd);
+        $this->setBodyFromString($form);
     }
 } 
