@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `userProfiles` (
   `firstName` varchar(40) CHARACTER SET utf32 COLLATE utf32_bin NOT NULL,
   `lastName` varchar(40) CHARACTER SET utf32 COLLATE utf32_bin NOT NULL,
   `username` varchar(40) CHARACTER SET utf32 COLLATE utf32_bin NOT NULL,
-  `password` varchar(40) CHARACTER SET utf32 COLLATE utf32_bin NOT NULL,
+  `password` varchar(300) CHARACTER SET utf32 COLLATE utf32_bin NOT NULL,
   `caloryGoal` int(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

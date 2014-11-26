@@ -42,10 +42,12 @@ EOD;
             else {
                 $userID = $this->getUser();
                 $history = UHF::get_history_by_user($userID);
-                echo $history;
+                //echo $history;
             }
-
-
+        }
+        else{
+            $userID = $this->getUser();
+            $history = UHF::get_history_by_user($userID);
         }
         $lst = function () use (&$history) {
 

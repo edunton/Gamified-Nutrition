@@ -70,7 +70,7 @@ class UserHistoryFacade extends FacadeBase implements IUserHistoryFacade{
 
             $info = $nf->getItem($history->itemID);
 
-            $history->calories= $info->calories;
+            $history->calories= $info->calories * $item['servings'];
             $history->itemName= $info->item_name;
             $history->brandName= $info->brand_name;
             $history->lock();
