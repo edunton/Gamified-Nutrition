@@ -8,7 +8,7 @@ class database
     {
         try
         {
-            $this->db = new \PDO("mysql:host=localhost; dbname = gamifiedNutrition; port=3306", "root");
+            $this->db = new \PDO("mysql:host=localhost; dbname = gamifiedNutrition; port=3306", "root",);
             $this->db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             $this->db->exec("SET NAMES 'utf8'");
             $this->db->exec("USE gamifiedNutrition");
@@ -42,9 +42,7 @@ class database
             exit;
         }
         $upperbound = $targetLimit * 1.05;
-        // echo($upperbound);
         $lowerbound = $targetLimit * 0.90;
-        // echo($lowerbound);
         // $caloryDifference = $targetLimit - $dailyCaloryIntake;
         // echo($caloryDifference);
         // echo($dailyCaloryIntake);
@@ -78,8 +76,25 @@ class database
                 }
             }
 
-        return $caloryMessage; //just to test
+        return $caloryMessage; //just to test if the query works
         
+    }
+
+    public function averagePerDay($db)
+    {
+        $userID = 1; //change this accordingly
+        $totalCalory = $db->query("SELECT sum(totalCalories) as caloriesSum from itemHistory WHERE historyDate > ADDDATE(NOW(), INTERVAL -1 WEEK) and userID=".$userID);
+        $calorySumResult = $totalCalory ->fetchAll();
+        $totalCalory = $calorySumResult[0]["caloriesSum"];
+
+        $numberOfEntries = $db->query("SELECT count(*) as count FROM `itemhistory` WHERE userID = $userID");
+        $entriesString = $numberOfEntries->fetchAll();
+        $numberOfEntries = $entriesString[0]["count"];
+
+        $averageCaloriesPerDay = $totalCalory / $numberOfEntries;
+
+        $insertAverageToTable = $db->query("UPDATE `averageCalories` SET `averageCaloriesPerDay`=$averageCaloriesPerDay WHERE userID = $userID");
+
     }
 
     public function PDO()
@@ -88,6 +103,14 @@ class database
     }
     
 } 
+
+
+// //testing userProgress()
+// $database = new database();
+// $db = $database->PDO();
+// $test = $database->averagePerDay($db);
+// echo($test);
+
 
 
 
