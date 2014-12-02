@@ -80,7 +80,7 @@ class database
         
     }
 
-    public function averagePerDay($db)
+    public function averagePerMeal($db)
     {
         $userID = 1; //change this accordingly
         $totalCalory = $db->query("SELECT sum(totalCalories) as caloriesSum from itemHistory WHERE historyDate > ADDDATE(NOW(), INTERVAL -1 WEEK) and userID=".$userID);
@@ -108,7 +108,7 @@ class database
 // //testing userProgress()
 // $database = new database();
 // $db = $database->PDO();
-// $test = $database->averagePerDay($db);
+// $test = $database->averagePerMeal($db);
 // echo($test);
 
 
