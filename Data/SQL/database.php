@@ -80,18 +80,21 @@ class database
         
     }
 
-    public function averagePerMeal($db)
+    public function averagePerDay($db)
     {
         $userID = 1; //change this accordingly
-        $totalCalory = $db->query("SELECT sum(totalCalories) as caloriesSum from itemHistory WHERE historyDate > ADDDATE(NOW(), INTERVAL -1 WEEK) and userID=".$userID);
+        $totalCalory = $db->query("SELECT sum(totalCalories) as caloriesSum from itemHistory WHERE userID = $userID");
         $calorySumResult = $totalCalory ->fetchAll();
         $totalCalory = $calorySumResult[0]["caloriesSum"];
 
-        $numberOfEntries = $db->query("SELECT count(*) as count FROM `itemhistory` WHERE userID = $userID");
+
+        $numberOfEntries = $db->query("SELECT COUNT(*) as count FROM( SELECT DISTINCT historyDate FROM itemhistory WHERE userID = $userID) x");
         $entriesString = $numberOfEntries->fetchAll();
         $numberOfEntries = $entriesString[0]["count"];
+        // echo($numberOfEntries);
 
         $averageCaloriesPerDay = $totalCalory / $numberOfEntries;
+        echo($averageCaloriesPerDay);
 
         $insertAverageToTable = $db->query("UPDATE `averageCalories` SET `averageCaloriesPerDay`=$averageCaloriesPerDay WHERE userID = $userID");
 
