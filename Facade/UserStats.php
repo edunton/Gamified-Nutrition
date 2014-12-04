@@ -15,7 +15,9 @@ class UserStats extends LockableContainer{
         return array(
             'UserID',
             'CaloriesPerDay',
-            'AwardsNum'
+            'AwardsNum',
+            'StartDate',    //will be in Y-m-d format, 1970-01-01 if no start date specified
+            'EndDate'       //9999-12-31 if no end date specified
         );
     }
 } 
