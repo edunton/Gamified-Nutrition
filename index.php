@@ -2,27 +2,25 @@
 
 require_once 'Main.php';
 
-use Display\Page as Page;
-use Display\SearchBar as SB;
-use Display\navBar as NB;
-use Display\navElement as NE;
-
 use Facade\UserProfileFacade as UPF;
 
-$sb = new SB('search.php');
-$displaySB = $sb->display();
-
-$page = <<<EOD
-<div class="jumbotron">
-  <h1>A Message to Eaters Everywhere</h1>
-  <p>Start Eating Healthy Now!</p>
-  $displaySB
-  <br>
-</div>
-EOD;
-
-$p = new Page('Gamified Nutrition','Welcome to Gamified Nutrition','Now in Beta');
-$p->setBodyFromString($page);
-echo $p->getPage();
+if(!isset($_COOKIE['user']))
+{
+    header("Location: login.php");
+    die();
+}
+else
+{
+    $cook = htmlspecialchars($_COOKIE['user']);
+    if(UPF::get_user_by_cookie($cook))
+    {
+        header("Location: homepage.php");
+        die();
+    }
+    else{
+        header("Location: login.php");
+        die();
+    }
+}
 
 ?>

@@ -18,6 +18,7 @@ class SignUpPage extends Page{
         $pass_class = 'form-group';
         $success = false;
         $name = '';
+        $scripts = array('scripts'=>array('scripts/registration.js'));
         if(count($_POST) > 0)
         {
             if(isset($_POST['pass1']) && isset($_POST['pass2']) && isset($_POST['username']))
@@ -33,7 +34,7 @@ class SignUpPage extends Page{
                     UPF::set_and_gen_cookie($user->UserID);
                     $success = true;
                     $this->setUser($user->UserID);
-                    parent::__construct('Sign Up Successful','Sign Up Successful','start using now');
+                    parent::__construct('Sign Up Successful','Sign Up Successful','start using now',$scripts);
                 }
                 else if(!$aval)
                 {
@@ -45,15 +46,15 @@ class SignUpPage extends Page{
                 {
                     $error_pass = '*Password fields do not match';
                     $pass_class = 'form-group has-error';
-                    parent::__construct('Sign Up for Gamified Nutrition','Whoops','');
+                    parent::__construct('Sign Up for Gamified Nutrition','Whoops','',$scripts);
                 }
             }
-            else parent::__construct('Sign Up for Gamified Nutrition','Register','for free');
+            else parent::__construct('Sign Up for Gamified Nutrition','Register','for free',$scripts);
         }
-        else parent::__construct('Sign Up for Gamified Nutrition','Register','for free');
+        else parent::__construct('Sign Up for Gamified Nutrition','Register','for free',$scripts);
 
         $body = <<<EOD
-    <form class="form-horizontal" role="form" method="post" action="$designation">
+    <form class="form-horizontal" role="form" method="post">
         <div class="$name_class">
           <label class="control-label col-sm-2" for="email">New Username: $error_name</label>
           <div class="col-sm-10">
@@ -74,7 +75,7 @@ class SignUpPage extends Page{
         </div>
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Submit</button>
+            <button id="register" class="btn btn-default">Submit</button>
           </div>
         </div>
       </form>
