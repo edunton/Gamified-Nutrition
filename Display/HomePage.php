@@ -10,6 +10,7 @@ namespace Display;
 
 use Facade\AchievementsFacade as AF;
 use Facade\UserHistoryFacade as UHF;
+use Facade\UserStatsFacade as USF;
 
 class HomePage extends Page
 {
@@ -19,9 +20,16 @@ class HomePage extends Page
         $item = '';
         $brand = '';
 
+        $userID = $this->getUser();
+
+        if ($userID == null){
+            header('Location: /Gamified_Nutrition/login.php');
+            die();
+        }
+
         $bodySearch = <<<EOD
         <div class="container">
-    <div class="row" >
+        <div class="row" >
         <div class="col-sm-6">
             <div class="panel panel-success">
                 <div class="panel-heading">
@@ -63,10 +71,9 @@ EOD;
                     <h4 class="text-center">
                         Statistic</h4>
                 </div>
-                <div class="panel-body text-center">
-                    <p class="lead">
-                        <strongSta</strong></p>
-                </div>
+
+EOD;
+        $bodyAch = <<<EOD
 
             </div>
         </div>
@@ -87,7 +94,7 @@ EOD;
 </div>
 EOD;
 
-        $userID = $this->getUser();
+
         $history = UHF::get_history_by_user($userID);
 
 
@@ -110,7 +117,30 @@ EOD;
             }
         };
 
+        $stats = USF::get_stats($userID,$start_date=date('Y-m-d', strtotime('-7 days')),$end_date=date("Y-m-d"));
 
+        $stalst = function () use (&$stats) {
+
+            $offset = sizeof($stats);
+
+            if ($offset !== 0) {
+                echo'<ul class="list-group">';
+
+                $tags = array('UserID: ','CaloriesPerDay: ','AwardsNum: ','StartDate: ','EndDate: ');
+                $i = 0;
+                foreach ($stats as $s) {
+                    if ($i != 0) {
+                        echo "<li class='list-group-item'>  $tags[$i]  $s  </li>";
+                    }
+                    $i = $i + 1;
+                }
+
+                echo '</ul>';
+
+
+            }
+
+        };
 
 
         $this->setBodyFromString($bodySearch);
@@ -120,6 +150,8 @@ EOD;
         $this->setBodyFromString($bodyHistory);
         $this->setBodyFromCallable($lst);
         $this->setBodyFromString($bodyStat);
+        $this->setBodyFromCallable($stalst);
+        $this->setBodyFromString($bodyAch);
 
 
     }
