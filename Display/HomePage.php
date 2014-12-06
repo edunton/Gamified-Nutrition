@@ -124,7 +124,7 @@ EOD;
             $offset = sizeof($stats);
 
             if ($offset !== 0) {
-                echo'<ul class="list-group">';
+                echo'<ul class="list-group text-center">';
 
                 $tags = array('UserID: ','CaloriesPerDay: ','AwardsNum: ','StartDate: ','EndDate: ');
                 $i = 0;
