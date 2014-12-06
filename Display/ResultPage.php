@@ -27,9 +27,9 @@ class ResultPage extends Page{
 
             echo "<ul class='list-group'>";
             echo $hit;
-            echo "<li class='list-group-item'>calories: $info->calories</li>";
-            echo "<li class='list-group-item'>calories from fat: $info->calories_from_fat</li>";
-            echo "<li class='list-group-item'>carbs: $info->total_carbohydrate</li>";
+            echo "<li class='list-group-item'>Calories: $info->calories</li>";
+            echo "<li class='list-group-item'>Calories from fat: $info->calories_from_fat</li>";
+            echo "<li class='list-group-item'>Carbs: $info->total_carbohydrate</li>";
             echo"</ul>";
         };
         
