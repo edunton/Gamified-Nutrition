@@ -25,6 +25,9 @@ class UserHistoryFacade extends FacadeBase implements IUserHistoryFacade{
         $historyID = self::gen_random();
         self::simple_exec("INSERT INTO itemhistory (historyID, itemID, userID, servings, historyDate)
                             VALUES ('$historyID','$itemID','$userID',$servings,'$historyDate')", false);
+
+        $db = new \Data\SQL\database();
+        $db->userProgress($userID);
     }
 
     //Edits servings in row and date optionally
@@ -45,9 +48,9 @@ class UserHistoryFacade extends FacadeBase implements IUserHistoryFacade{
     }
 
     //deletes a history item form the row
-    public static function delete_history_item($historyID)
+    public static function delete_history_item($userID,$historyID)
     {
-        self::simple_exec("DELETE FROM itemhistory WHERE historyID='$historyID'",false);
+        self::simple_exec("DELETE FROM itemhistory WHERE historyID='$historyID' AND userID = '$userID'",false);
     }
 
     //get user history as array of UserHistory objects, optional start date and end date arguments

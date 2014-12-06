@@ -18,6 +18,10 @@ class HistoryPage extends Page
     public function __construct()
     {
         parent::__construct('View History', 'History', '');
+        if(isset($_GET['delete']))
+        {
+            UHF::delete_history_item($this->getUser(),$_GET['delete']);
+        }
         $item = '';
         $brand = '';
         $confirmation = false; // Whether we need a confirmation for successfully adding a history
@@ -55,10 +59,13 @@ EOD;
 
                 if ($offset !== 0) {
 
-                    echo '<div class="table-responsive"><table class="table table-striped table-bordered"><thead><tr><th>Name</th><th>Brand</th>><th>Servings</th><th>Total Calories</th><th>Date</th></tr></thead><tbody>';
+                    echo '<div class="table-responsive"><table class="table table-striped table-bordered"><thead><tr><th>Name</th><th>Brand</th>><th>Servings</th><th>Total Calories</th><th>Date</th><th>Delete</th></tr></thead><tbody>';
 
                     for ($i = 0; $i < $offset; $i++) {
-                        echo '<tr><td>' . $history[$i]->itemName . '</td><td>' . $history[$i]->brandName . '</td><td>' . $history[$i]->servings . '</td><td>' . $history[$i]->calories .'</td><td>' . $history[$i]->historyDate . '</td></tr>';
+                        echo '<tr><td>' . $history[$i]->itemName . '</td><td>' . $history[$i]->brandName . '</td><td>'
+                            . $history[$i]->servings . '</td><td>' . $history[$i]->calories .'</td><td>'
+                            . $history[$i]->historyDate . '</td><td><a href="history.php?delete='.$history[$i]->historyID.'">
+                            <i class="icon-remove" style="color: red; font-size: 14pt;">x</i></a></td></tr>';
                     }
 
                 } else {

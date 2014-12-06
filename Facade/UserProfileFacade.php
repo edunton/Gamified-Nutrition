@@ -71,7 +71,7 @@ class UserProfileFacade extends FacadeBase implements IUserProfileFacade{
     {
         $md = self::gen_random();
         self::simple_exec("UPDATE userprofiles SET caloryGoal=$goal WHERE userID='$userID';
-                          DELETE FROM user_Targets WHERE userID=$userID;
+                          DELETE FROM user_Targets WHERE userID='$userID';
                           INSERT INTO user_Targets (userID,typeID,targetLimit) VALUES ('$userID',1,'$goal');",false);
     }
 
@@ -98,6 +98,7 @@ class UserProfileFacade extends FacadeBase implements IUserProfileFacade{
         {
             //print_r($p);
             $uinfo = new UserInfo();
+            if(isset($p[0]['userName'])) $uinfo->UserName = $p[0]['userName'];
             if(isset($p[0]['username'])) $uinfo->UserName = $p[0]['username'];
             if(isset($p[0]['userID'])) $uinfo->UserID = $p[0]['userID'];
             if(isset($p[0]['caloryGoal'])) $uinfo->CalorieGoal = $p[0]['caloryGoal'];

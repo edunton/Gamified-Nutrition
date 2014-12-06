@@ -21,26 +21,39 @@ class database
         }
     }
 
-    public function userProgress($db)
+    public function userProgress($userID)
     {
-        try {
-            $userID = 1;//changes according to user --> Change this to the current user
-            $caloryTarget = $db->query("SELECT targetLimit FROM user_Targets");
+       // try {
+            //$userID = 1;//changes according to user --> Change this to the current user
+            $caloryTarget = $this->db->query("SELECT targetLimit FROM user_Targets WHERE userID = '$userID'");
             $caloryGoalRow = $caloryTarget->fetchAll(); //calory goal of current user
+
+            //no goals set by user
+            if(!isset($caloryGoalRow[0]["targetLimit"]))
+            {
+                return 'no goals';
+            }
+
             $targetLimit = $caloryGoalRow[0]["targetLimit"];
 
-            $dailyCaloryIntake = $db->query ("SELECT sum(totalCalories) as dailyCaloriesSum FROM `itemhistory` WHERE userID = $userID AND historyDate = DATE(NOW())");
+            $dailyCaloryIntake = $this->db->query ("SELECT sum(nd.calories) as dailyCaloriesSum
+                                                    FROM `itemhistory` ih INNER JOIN `nutritiondata` nd
+                                                    ON nd.itemID = ih.itemID
+                                                    WHERE userID = '$userID' AND historyDate = DATE(NOW())");
             $dailyCaloryIntakeResult = $dailyCaloryIntake->fetchAll();
             $dailyCaloryIntake = $dailyCaloryIntakeResult[0]["dailyCaloriesSum"];
 
-            $totalCalory = $db->query("SELECT sum(totalCalories) as caloriesSum from itemHistory WHERE historyDate > ADDDATE(NOW(), INTERVAL -1 WEEK) and userID=".$userID);
+            $totalCalory = $this->db->query("SELECT sum(nd.calories) as caloriesSum
+                                                    FROM `itemhistory` ih INNER JOIN `nutritiondata` nd
+                                                    ON nd.itemID = ih.itemID
+                                                WHERE historyDate > ADDDATE(NOW(), INTERVAL -1 WEEK) and userID='$userID'");
             $calorySumResult = $totalCalory ->fetchAll();//calorySum of current user
             $calorySum = $calorySumResult[0]["caloriesSum"];
-        } 
-        catch(Exception $e){
+       /* }
+        catch(\Exception $e){
             echo "Data could not be retrieved";
             exit;
-        }
+        }*/
         $upperbound = $targetLimit * 1.05;
         $lowerbound = $targetLimit * 0.90;
         // $caloryDifference = $targetLimit - $dailyCaloryIntake;
@@ -52,27 +65,31 @@ class database
 
             if ($dailyCaloryIntake > $upperbound){
                 $caloryMessage = "Over the upper bound";
-                $updateProgress = $db->query("UPDATE `userProgress` SET `progress`=0 WHERE userID = $userID");
+                $updateProgress = $this->db->query("UPDATE `userProgress` SET `progress`=0 WHERE userID = '$userID'");
 
             } else if ($lowerbound < $dailyCaloryIntake && $dailyCaloryIntake < $upperbound){
-                $updateProgress = $db->query("UPDATE `userProgress` SET `progress`=`progress`+1 WHERE userID = $userID");
+                $updateProgress = $this->db->query("UPDATE `userProgress` SET `progress`=`progress`+1 WHERE userID = '$userID'");
                 $caloryMessage = "You're within the specified range";
-                $progress = $db->query("SELECT progress FROM `userProgress` WHERE userID = $userID");
+                $progress = $db->query("SELECT progress FROM `userProgress` WHERE userID = '$userID'");
                 $progressRow = $progress->fetchAll();
                 $progress = $progressRow[0]["progress"];
                 if ($progress % 7 == 0){
-                    $writeAchievement = $db->query("INSERT INTO `gamifiedNutrition`.`achievementLog` (`achievementLogID`, `userID`, `achievementType`, `Time`) VALUES ('$randomID', '$userID', 'weeklyGoal', CURRENT_TIMESTAMP);");
+                    $writeAchievement = $db->query("INSERT INTO `gamifiedNutrition`.`achievementLog`
+                            (`achievementLogID`, `userID`, `achievementType`, `Time`)
+                            VALUES ('$randomID', '$userID', 'weeklyGoal', CURRENT_TIMESTAMP);");
                 }
 
 
             } else if ($dailyCaloryIntake < $lowerbound) {
                 $caloryMessage = "You can eat more";
-                $updateProgress = $db->query("UPDATE `userProgress` SET `progress`=`progress`+1 WHERE userID = $userID");
-                $progress = $db->query("SELECT progress FROM `userProgress` WHERE userID = $userID");
+                $updateProgress = $this->db->query("UPDATE `userProgress` SET `progress`=`progress`+1 WHERE userID = '$userID'");
+                $progress = $this->db->query("SELECT progress FROM `userProgress` WHERE userID = '$userID'");
                 $progressRow = $progress->fetchAll();
-                $progress = $progressRow[0]["progress"];
+                $progress = count($progressRow) > 0 ? $progressRow[0]["progress"] : 1;
                 if ($progress % 7 == 0){
-                    $writeAchievement = $db->query("INSERT INTO `gamifiedNutrition`.`achievementLog` (`achievementLogID`, `userID`, `achievementType`, `Time`) VALUES ('$randomID', '$userID', 'weeklyGoal', CURRENT_TIMESTAMP);");
+                    $writeAchievement = $this->db->query("INSERT INTO `gamifiedNutrition`.`achievementLog`
+                                                  (`achievementLogID`, `userID`, `achievementType`, `Time`)
+                                                  VALUES ('$randomID', '$userID', 'weeklyGoal', CURRENT_TIMESTAMP);");
                 }
             }
 

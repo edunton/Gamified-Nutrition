@@ -12,7 +12,7 @@ namespace Interfaces;
 interface IUserHistoryFacade {
     public static function enter_history_item($userID, $itemID, $servings ,$historyDate);
     public static function edit_servings_history($historyID,$new_servings,$new_date);
-    public static function delete_history_item($historyID);
+    public static function delete_history_item($userID,$historyID);
 
     //returns array of UserHistory objects
     public static function get_history_by_user($userID,$start_date,$end_date);
