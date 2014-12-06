@@ -33,8 +33,7 @@ class HomePage extends Page
         <div class="col-sm-6">
             <div class="panel panel-success">
                 <div class="panel-heading">
-                    <h4 class="text-center">
-                        Search Engine</h4>
+                        <h4 class="text-center"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span></span>Search Engine</h4>
                 </div>
 
                 <div class="panel-body text-center">
@@ -52,11 +51,11 @@ EOD;
         <div class="col-sm-6">
             <div class="panel panel-success">
                 <div class="panel-heading">
-                    <h4 class="text-center">
-                        History</h4>
+
+                    <h4 class="text-center"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>History</h4>
+
                 </div>
-                <div class="panel-body text-center">
-                </div>
+
 EOD;
 
         $bodyStat = <<<EOD
@@ -68,8 +67,9 @@ EOD;
         <div class="col-sm-6">
             <div class="panel panel-success">
                 <div class="panel-heading">
-                    <h4 class="text-center">
-                        Statistic</h4>
+
+                <h4 class="text-center"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span>Statistic</h4>
+
                 </div>
 
 EOD;
@@ -80,8 +80,7 @@ EOD;
         <div class="col-sm-6">
             <div class="panel panel-success">
                 <div class="panel-heading">
-                    <h4 class="text-center">
-                        Achievement</h4>
+                    <h4 class="text-center"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>Achievement</h4>
                 </div>
             <div class="progress">
   <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
