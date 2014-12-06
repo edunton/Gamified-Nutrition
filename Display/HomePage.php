@@ -113,7 +113,7 @@ EOD;
                 echo '</table></div>';
             } else {
 
-                echo '<div class="alert alert-info" role="alert">No history so far!</div>';
+                echo '<div class="text-center alert alert-info" role="alert">No history so far!</div>';
             }
         };
 
