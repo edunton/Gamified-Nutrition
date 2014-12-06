@@ -46,7 +46,7 @@ class ProfileEdit extends Page {
                     <div class="text-center alert alert-success col-sm-offset-1 col-sm-10" role="alert">
                     <p>Congratulations! You have successfully edited your calories goal!</br>Current Calories Goal: $caloriesgoal.</p>
                     <div>
-EOD;w
+EOD;
 
         $form = <<<EOD
         <form class="form-horizontal" role="form" method="post" action="ProfileEdit.php">
