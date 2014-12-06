@@ -32,6 +32,9 @@ class ResultPage extends Page{
             echo "<li class='list-group-item'>carbs: $info->total_carbohydrate</li>";
             echo"</ul>";
         };
+        
+        $date = date("Y-m-d");
+        echo $date;
 
         $form = <<<EOD
         <form class="form-inline" role="form" method="post" action="history.php">
@@ -41,7 +44,7 @@ class ResultPage extends Page{
             </div>
             <div class="form-group">
                 <label for="date">Date:</label>
-                <input type="date" class="form-control" name="date">
+                <input type="date" class="form-control" name="date" value="$date">
             </div>
             <button type="submit" class="btn btn-default">Add to history </button>
             <input type="hidden" name="itemID" value="%s">
