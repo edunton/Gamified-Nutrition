@@ -23,7 +23,7 @@ class HomePage extends Page
         $userID = $this->getUser();
 
         if ($userID == null){
-            header('Location: /Gamified_Nutrition/login.php');
+            header('Location: '.SITE_ROOT.'login.php');
             die();
         }
 
