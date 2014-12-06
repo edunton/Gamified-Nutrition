@@ -23,7 +23,7 @@ class HomePage extends Page
         $userID = $this->getUser();
 
         if ($userID == null){
-            header('Location: '.SITE_ROOT.'login.php');
+            header('Location: /Gamified_Nutrition/login.php');
             die();
         }
 
@@ -83,11 +83,11 @@ EOD;
                     <h4 class="text-center">
                         Achievement</h4>
                 </div>
-                <div class="panel-body text-center">
-                    <p class="lead">
-                        <strong>Achi</strong></p>
-
-            </div>
+            <div class="progress">
+  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+    <span class="sr-only">45% Complete</sp an>
+  </div>
+</div>
         </div>
         </div>
     </div>
@@ -113,7 +113,7 @@ EOD;
                 echo '</table></div>';
             } else {
 
-                echo '<div class="text-center alert alert-info" role="alert">No history so far!</div>';
+                echo '<div class="alert alert-info" role="alert">No history so far!</div>';
             }
         };
 
