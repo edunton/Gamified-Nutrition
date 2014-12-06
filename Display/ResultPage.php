@@ -27,14 +27,12 @@ class ResultPage extends Page{
 
             echo "<ul class='list-group'>";
             echo $hit;
-            echo "<li class='list-group-item'>Calories: $info->calories</li>";
-            echo "<li class='list-group-item'>Calories from fat: $info->calories_from_fat</li>";
-            echo "<li class='list-group-item'>Carbs: $info->total_carbohydrate</li>";
+            echo "<li class='list-group-item'>Serving Size Quantity: $info->serving_size_qty</li>";
+            echo "<li class='list-group-item'>Serving Size Unit: $info->serving_size_unit</li>";
             echo"</ul>";
         };
         
         $date = date("Y-m-d");
-        echo $date;
 
         $form = <<<EOD
         <form class="form-inline" role="form" method="post" action="history.php">
