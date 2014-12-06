@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 23, 2014 at 01:55 AM
+-- Generation Time: Dec 06, 2014 at 09:19 PM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `achievementLog` (
   `achievementLogID` varchar(40) NOT NULL,
-  `userID` int(11) NOT NULL,
+  `userID` varchar(40) NOT NULL,
   `achievementType` varchar(20) NOT NULL,
   `Time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -38,8 +38,8 @@ CREATE TABLE IF NOT EXISTS `achievementLog` (
 --
 
 INSERT INTO `achievementLog` (`achievementLogID`, `userID`, `achievementType`, `Time`) VALUES
-('1', 1, 'week', '2014-11-22 20:45:16'),
-('4fe14993bb9a3fa2211d9f5761216cff', 1, 'weeklyGoal', '2014-11-22 20:55:01');
+('1', '1', 'week', '2014-11-22 20:45:16'),
+('4fe14993bb9a3fa2211d9f5761216cff', '1', 'weeklyGoal', '2014-11-22 20:55:01');
 
 --
 -- Indexes for dumped tables
