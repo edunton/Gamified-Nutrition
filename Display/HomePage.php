@@ -112,7 +112,7 @@ EOD;
                 echo '</table></div>';
             } else {
 
-                echo '<div class="alert alert-info" role="alert">No history so far!</div>';
+                echo '<div class="alert alert-info text-center" role="alert">No history so far!</div>';
             }
         };
 
@@ -171,7 +171,7 @@ EOD;
                 echo '</table></div>';
             } else {
 
-                echo '<div class="alert alert-info" role="alert">No achievement so far!</div>';
+                echo '<div class="alert alert-info text-center" role="alert">No achievement so far!</div>';
             }
         };
 
