@@ -54,7 +54,7 @@ class database
             $timeobj1 = new \DateTime($date);
             $timeobj1->sub(new \DateInterval('P7D'));
             $timeobj2 = count($last_ach) > 0 ? new \DateTime($last_ach[0]['ttime']) : null;
-            $timeobj2->add(new \DateInterval('P1D'));
+            if($timeobj2 != null) $timeobj2->add(new \DateInterval('P1D'));
 
             //echo date('Y-m-d',$timeobj1->getTimestamp());
             //echo date('Y-m-d',$timeobj2->getTimestamp());
