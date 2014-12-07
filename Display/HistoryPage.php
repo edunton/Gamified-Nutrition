@@ -22,6 +22,13 @@ class HistoryPage extends Page
         {
             UHF::delete_history_item($this->getUser(),$_GET['delete']);
         }
+        $userID = $this->getUser();
+
+        if ($userID == null){
+            header('Location: '.SITE_ROOT.'login.php');
+            die();
+        }
+
         $item = '';
         $brand = '';
         $confirmation = false; // Whether we need a confirmation for successfully adding a history
