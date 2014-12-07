@@ -59,7 +59,7 @@ EOD;
 
                 if ($offset !== 0) {
 
-                    echo '<div class="table-responsive"><table class="table table-striped table-bordered"><thead><tr><th>Name</th><th>Brand</th>><th>Servings</th><th>Total Calories</th><th>Date</th><th>Delete</th></tr></thead><tbody>';
+                    echo '<div class="table-responsive"><table class="table table-striped table-bordered"><thead><tr><th>Name</th><th>Brand</th><th>Servings</th><th>Total Calories</th><th>Date</th><th>Delete</th></tr></thead><tbody>';
 
                     for ($i = 0; $i < $offset; $i++) {
                         echo '<tr><td>' . $history[$i]->itemName . '</td><td>' . $history[$i]->brandName . '</td><td>'
