@@ -104,8 +104,9 @@ EOD;
     }
     private function stdBar()
     {
-        $ne1 = new navElement('left','#',LEFT);
-        $ne2 = new navElement('right','#',RIGHT);
+        $ne1 = new navElement('Enter Data','search.php',LEFT);
+-       $ne2 = new navElement('History','history.php',LEFT);
+-       $ne3 = new navElement('My Achievements','achievements.php',LEFT);
 
         if($this->userID != null)
         {
@@ -114,13 +115,12 @@ EOD;
             $nb = new navBar($user->UserName);
             $nb->addElement($ne1);
             $nb->addElement($ne2);
+            $nb->addElement($ne3);
             $this->bar = $nb->display();
         }
         else
         {
             $nb = new navBar();
-            $nb->addElement($ne1);
-            $nb->addElement($ne2);
             $this->bar = $nb->display();
         }
     }
