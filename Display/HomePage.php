@@ -80,7 +80,7 @@ EOD;
         <div class="col-sm-6">
             <div class="panel panel-success">
                 <div class="panel-heading">
-                    <h4 class="text-center"><a href="/Gamified-Nutrition/achievement.php"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>Achievement</a></h4>
+                    <h4 class="text-center"><a href="/Gamified-Nutrition/achievements.php"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>Achievement</a></h4>
                 </div>
 EOD;
 
