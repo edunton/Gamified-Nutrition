@@ -81,7 +81,7 @@ class SignUpPage extends Page{
       </form>
 EOD;
         if($success)
-            $body = "<p>Success as $name</p>";
-        $this->setBodyFromString($body);
+            header('Location: /Gamified_Nutrition/profileedit.php');
+            die();
     }
 } 
