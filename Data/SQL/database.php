@@ -100,7 +100,7 @@ class database
             }
         }
 
-        echo $successes;
+        //echo $successes;
 
         $randomID = md5(time());
         if($successes >= 7)
