@@ -10,7 +10,7 @@
             alert("Your passwords don't match. Try again?");
         } else if (!/^(?=.*\d).{8,30}$/.test(password)) {
             alert("Your password must be between 8 and 30 characters long and with at least one number");
-        } else if (!/^[a-z0-9]{3,16}$/.test(name)) {
+        } else if (!/^[a-zA-Z0-9]{3,16}$/.test(name)) {
             alert("Your username must only contain letters and numbers and be between 3 and 16 characters")
         } else {
             /*
