@@ -33,7 +33,7 @@ class HomePage extends Page
         <div class="col-sm-6">
             <div class="panel panel-success">
                 <div class="panel-heading">
-                        <h4 class="text-center"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span></span>Search Engine</h4>
+                        <h4 class="text-center"><a href="/Gamified-Nutrition/search.php"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span>Search Engine</a></h4>
                 </div>
 
                 <div class="panel-body text-center">
@@ -52,7 +52,7 @@ EOD;
             <div class="panel panel-success">
                 <div class="panel-heading">
 
-                    <h4 class="text-center"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>History</h4>
+                    <h4 class="text-center"><a href="/Gamified-Nutrition/history.php"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>History</a></h4>
 
                 </div>
 
@@ -68,7 +68,7 @@ EOD;
             <div class="panel panel-success">
                 <div class="panel-heading">
 
-                <h4 class="text-center"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span>Statistic</h4>
+                <h4 class="text-center"><a href="/Gamified-Nutrition/statistic.php"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span>Statistic</a></h4>
 
                 </div>
 
@@ -80,13 +80,13 @@ EOD;
         <div class="col-sm-6">
             <div class="panel panel-success">
                 <div class="panel-heading">
-                    <h4 class="text-center"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>Achievement</h4>
+                    <h4 class="text-center"><a href="/Gamified-Nutrition/achievement.php"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>Achievement</a></h4>
                 </div>
-            <div class="progress">
-  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-    <span class="sr-only">45% Complete</sp an>
-  </div>
-</div>
+EOD;
+
+
+        $bodytail = <<<EOD
+
         </div>
         </div>
     </div>
@@ -151,6 +151,31 @@ EOD;
             }
         };
 
+        $ach = AF::get_user_achievements_by_ID($userID);
+        $achlst = function () use ($ach) {
+
+            $offset = sizeof($ach);
+
+            if ($offset !== 0) {
+
+                echo '<div class="table-responsive"><table class="table table-striped table-bordered"><thead><tr><th>AchievementType</th><th>Date</th><th>Progress</th></tr></thead><tbody>';
+
+                for ($i = 0; $i < $offset && $i < 5; $i++) {
+                    $p = ($ach[$i]->Progress/7)/100;
+                    echo '<tr><td>' . $ach[$i]->AchievementType . '</td><td>' . $ach[$i]->Date .'</td><td>' . $ach[$i]->Progress . '<div class="progress">
+  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:' . $p . '%">' . $p .'%
+  </div>
+</div></td></tr>';
+                }
+
+                echo '</table></div>';
+            } else {
+
+                echo '<div class="alert alert-info" role="alert">No history so far!</div>';
+            }
+        };
+
+
         $this->setBodyFromString($bodySearch);
         $sb = new SearchBar('search.php');
         $sbstr = $sb->display(NULL, 'row', $item, $brand);
@@ -160,6 +185,8 @@ EOD;
         $this->setBodyFromString($bodyStat);
         $this->setBodyFromCallable($stalst);
         $this->setBodyFromString($bodyAch);
+        $this->setBodyFromCallable($achlst);
+        $this->setBodyFromString($bodytail);
 
 
     }
