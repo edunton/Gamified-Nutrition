@@ -1,5 +1,4 @@
-$(document).ready(function() {
-    $("#register").click(function() {
+ function verify() {
         var name = $("#username").val();
         var password = $("#pwd").val();
         var cpassword = $("#pwd2").val();
@@ -14,18 +13,22 @@ $(document).ready(function() {
         } else if (!/^[a-z0-9]{3,16}$/.test(name)) {
             alert("Your username must only contain letters and numbers and be between 3 and 16 characters")
         } else {
-            $.post("../signup.php", {
+            /*
+            $.post("/Gamified-Nutrition/signup.php", {
                 username: name,
                 pass1: password,
                 pass2: password
-            }, function(data) {
+            }).done(function(data) {
                 if (data == 'You have Successfully Registered') {
                     //$("form")[0].reset();
                 }
                 alert(data);
             });
+            */
+            return true;
         }
-    });
-});/**
+     return false;
+}
+/**
  * Created by Eric on 12/4/2014.
  */
