@@ -34,7 +34,10 @@ class SignUpPage extends Page{
                     UPF::set_and_gen_cookie($user->UserID);
                     $success = true;
                     $this->setUser($user->UserID);
-                    parent::__construct('Sign Up Successful','Sign Up Successful','start using now',$scripts);
+                     //parent::__construct('Sign Up Successful','Sign Up Successful','start using now',$scripts);
+
+                    header('Location: /Gamified-Nutrition/profileedit.php');
+                    die();
                 }
                 else if(!$aval)
                 {
@@ -81,7 +84,7 @@ class SignUpPage extends Page{
       </form>
 EOD;
         if($success)
-            header('Location: /Gamified_Nutrition/profileedit.php');
-            die();
+            $body = "<p>Success as $name</p>";
+        $this->setBodyFromString($body);
     }
 } 
