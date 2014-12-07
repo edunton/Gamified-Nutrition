@@ -36,11 +36,11 @@ class AchievementsPage extends Page{
             if ($offset !== 0) {
 
                 echo '<div class="table-responsive"><table class="table table-striped table-bordered">
-                <thead><tr><th>Name</th><th>Brand</th>><th>Servings</th><th>Total Calories</th><th>Date</th></tr></thead><tbody>';
+                <thead><tr><th>Type</th><th>Date</th>><th>Completion Status</th></tr></thead><tbody>';
 
                 for ($i = 0; $i < $offset; $i++) {
                     echo '<tr><td>' . $history[$i]->AchievementType . '</td><td>' . $history[$i]->Date
-                        . '</td><td>' . $history[$i]->Progress . '</td></tr>';
+                        . '</td><td>' . round(($history[$i]->Progress/7)*100) . '%</td></tr>';
                 }
 
             } else {
