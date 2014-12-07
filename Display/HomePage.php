@@ -122,10 +122,11 @@ EOD;
 
             $offset = sizeof($stats);
 
-            if ($offset !== 0) {
-                echo'<ul class="list-group text-center">';
+            if ($offset != 0 && !is_null($stats->CaloriesPerDay)) {
 
-                $tags = array('UserID: ','CaloriesPerDay: ','AwardsNum: ','StartDate: ','EndDate: ');
+                echo '<ul class="list-group text-center">';
+
+                $tags = array('UserID: ', 'CaloriesPerDay: ', 'AwardsNum: ', 'StartDate: ', 'EndDate: ');
                 $i = 0;
                 foreach ($stats as $s) {
                     if ($i != 0) {
@@ -137,10 +138,18 @@ EOD;
                 echo '</ul>';
 
 
+            } else {
+                $start_date = date('Y-m-d', strtotime('-7 days'));
+                $end_date = date("Y-m-d");
+                echo '<ul class="list-group text-center">';
+                echo "<li class='list-group-item'>CaloriesPerDay: 0</li>";
+                echo "<li class='list-group-item'>AwardsNum: 0</li>";
+                echo "<li class='list-group-item'>StartDate: $start_date </li>";
+                echo "<li class='list-group-item'>EndDate: $end_date </li>";
+                echo '</ul>';
+
             }
-
         };
-
 
         $this->setBodyFromString($bodySearch);
         $sb = new SearchBar('search.php');
