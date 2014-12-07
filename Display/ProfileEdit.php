@@ -55,7 +55,7 @@ EOD;
             <div class="form-group">
             <label class="control-label col-sm-2" for="goal">New Calories Goal:</label>
             <div class="col-sm-10">
-            <input type="number" class="form-control" name="goal">
+            <input type="number" class="form-control" name="goal" placeholder="Your current Calories Goal: $caloriesgoal ">
             </div>
             </div>
         <div class="form-group">
