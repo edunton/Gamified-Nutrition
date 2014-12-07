@@ -57,7 +57,7 @@ class SignUpPage extends Page{
         else parent::__construct('Sign Up for Gamified Nutrition','Register','for free',$scripts);
 
         $body = <<<EOD
-    <form class="form-horizontal" role="form" method="post">
+    <form class="form-horizontal" role="form" method="post" onsubmit="return verify();">
         <div class="$name_class">
           <label class="control-label col-sm-2" for="email">New Username: $error_name</label>
           <div class="col-sm-10">
@@ -78,7 +78,7 @@ class SignUpPage extends Page{
         </div>
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
-            <button id="register" class="btn btn-default">Submit</button>
+            <button id="register" class="btn btn-default" >Submit</button>
           </div>
         </div>
       </form>
