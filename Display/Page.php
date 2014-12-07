@@ -106,7 +106,8 @@ EOD;
     {
         $ne1 = new navElement('Enter Data','search.php',LEFT);
         $ne2 = new navElement('History','history.php',LEFT);
-        $ne3 = new navElement('My Achievements','achievements.php',LEFT);
+        $ne3 = new navElement('Achievements','achievements.php',LEFT);
+        $ne4 = new navElement('Statistics','statistic.php',LEFT);
 
         if($this->userID != null)
         {
@@ -116,6 +117,7 @@ EOD;
             $nb->addElement($ne1);
             $nb->addElement($ne2);
             $nb->addElement($ne3);
+            $nb->addElement($ne4);
             $this->bar = $nb->display();
         }
         else
