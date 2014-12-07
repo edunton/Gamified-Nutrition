@@ -37,7 +37,6 @@ class Page implements IPage
         <title>$title</title>
         <link rel="stylesheet" href="styles/bootstrap/css/bootstrap.css">
         <link rel="stylesheet" href="styles/bootstrap/css/bootstrap-theme.css">
-        <link rel="stylesheet" href="styles/hello.css">
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="styles/bootstrap/js/bootstrap.js"></script>
         $this->header_add_on
@@ -104,8 +103,9 @@ EOD;
     }
     private function stdBar()
     {
-        $ne1 = new navElement('left','#',LEFT);
-        $ne2 = new navElement('right','#',RIGHT);
+        $ne1 = new navElement('Enter Data','search.php',LEFT);
+        $ne2 = new navElement('History','history.php',LEFT);
+        $ne3 = new navElement('My Achievements','achievements.php',LEFT);
 
         if($this->userID != null)
         {
@@ -114,13 +114,12 @@ EOD;
             $nb = new navBar($user->UserName);
             $nb->addElement($ne1);
             $nb->addElement($ne2);
+            $nb->addElement($ne3);
             $this->bar = $nb->display();
         }
         else
         {
             $nb = new navBar();
-            $nb->addElement($ne1);
-            $nb->addElement($ne2);
             $this->bar = $nb->display();
         }
     }
