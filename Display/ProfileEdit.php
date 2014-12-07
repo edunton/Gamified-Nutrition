@@ -44,7 +44,9 @@ class ProfileEdit extends Page {
 
         $msg = <<<EOD
                     <div class="text-center alert alert-success col-sm-offset-1 col-sm-10" role="alert">
-                    <p>Congratulations! You have successfully edited your calories goal!</br>Current Calories Goal: $caloriesgoal.</p>
+                    <p>Congratulations! You have successfully edited your calories goal!</br>Current Calories Goal: $caloriesgoal.</p></br>
+                    <p>Redirect to Homepage in 3 seconds<p>
+
                     <div>
 EOD;
 
@@ -67,6 +69,7 @@ EOD;
         if ($confirmation) {
                 $this->setBodyFromString($msg);
                 $this->setBodyFromString($form);
+                header( "refresh:3;url=/Gamified-Nutrition/homepage.php" );
             }
         else {
                 $this->setBodyFromString($form);
