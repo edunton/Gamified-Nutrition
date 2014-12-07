@@ -16,8 +16,8 @@ class UserStatsFacade extends FacadeBase{
         $end_time = $end_date.' 23:59:59';
         $ach = self::simple_exec("SELECT COUNT(*) AS num FROM achievementLog a
                                 WHERE a.userID = '$user_id' AND a.Time>='$start_time'
-                                AND a.Time<='$end_date'");
-
+                                AND a.Time<='$end_time'");
+        //print_r($ach);
         $avg = self::simple_exec("SELECT AVG(d.cals) as avg FROM
                                 (SELECT SUM(nd.calories*ih.servings) as cals, ih.historyDate as week
                                 FROM itemhistory ih INNER JOIN nutritiondata nd ON nd.itemID = ih.itemID
