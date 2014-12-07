@@ -105,8 +105,8 @@ EOD;
     private function stdBar()
     {
         $ne1 = new navElement('Enter Data','search.php',LEFT);
--       $ne2 = new navElement('History','history.php',LEFT);
--       $ne3 = new navElement('My Achievements','achievements.php',LEFT);
+        $ne2 = new navElement('History','history.php',LEFT);
+        $ne3 = new navElement('My Achievements','achievements.php',LEFT);
 
         if($this->userID != null)
         {
