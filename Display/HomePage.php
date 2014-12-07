@@ -161,8 +161,8 @@ EOD;
                 echo '<div class="table-responsive"><table class="table table-striped table-bordered"><thead><tr><th>AchievementType</th><th>Date</th><th>Progress</th></tr></thead><tbody>';
 
                 for ($i = 0; $i < $offset && $i < 5; $i++) {
-                    $p = ($ach[$i]->Progress/7)/100;
-                    echo '<tr><td>' . $ach[$i]->AchievementType . '</td><td>' . $ach[$i]->Date .'</td><td>' . $ach[$i]->Progress . '<div class="progress">
+                    $p = round(($ach[$i]->Progress/7)*100);
+                    echo '<tr><td>' . $ach[$i]->AchievementType . '</td><td>' . $ach[$i]->Date .'</td><td><div class="progress">
   <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:' . $p . '%">' . $p .'%
   </div>
 </div></td></tr>';

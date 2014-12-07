@@ -32,7 +32,7 @@ class NavBar implements INavBar{
     private $navRight = 
     '</ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span> %s</a></li>
+            <li><a href="profileedit.php"><span class="glyphicon glyphicon-user"></span> %s</a></li>
             <li><a href="logout.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
     ';
 

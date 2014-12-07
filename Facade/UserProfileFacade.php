@@ -69,10 +69,17 @@ class UserProfileFacade extends FacadeBase implements IUserProfileFacade{
 
     public static function set_user_calories_goal($userID,$goal)
     {
+        /*
+         * `userProgressID` varchar(40) NOT NULL,
+  `userID` varchar(40) NOT NULL,
+  `progress` int(3) NOT NULL,
+         */
         $md = self::gen_random();
-        self::simple_exec("UPDATE userprofiles SET caloryGoal=$goal WHERE userID='$userID';
-                          DELETE FROM user_Targets WHERE userID='$userID';
-                          INSERT INTO user_Targets (userID,typeID,targetLimit) VALUES ('$userID',1,'$goal');",false);
+        self::simple_exec("UPDATE userprofiles SET caloryGoal=$goal WHERE userID='$userID'",false);
+        self::simple_exec("DELETE FROM user_targets WHERE userID='$userID'",false);
+        self::simple_exec("INSERT INTO user_targets (userTargetID,userID,typeID,targetLimit) VALUES ('$md','$userID',1,'$goal')",false);
+        self::simple_exec("DELETE FROM userprogress WHERE userID='$userID'",false);
+        self::simple_exec("INSERT INTO userprogress (userProgressID,userID,progress) VALUES ('$md','$userID',0)",false);
     }
 
     public static function get_user_by_cookie($cookie)

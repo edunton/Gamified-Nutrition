@@ -27,7 +27,7 @@ class UserHistoryFacade extends FacadeBase implements IUserHistoryFacade{
                             VALUES ('$historyID','$itemID','$userID',$servings,'$historyDate')", false);
 
         $db = new \Data\SQL\database();
-        $db->userProgress($userID);
+        $db->userProgress($userID,$historyDate);
     }
 
     //Edits servings in row and date optionally
@@ -58,7 +58,8 @@ class UserHistoryFacade extends FacadeBase implements IUserHistoryFacade{
     {
         $items = self::simple_exec("SELECT * FROM itemhistory
                                     WHERE userID='$userID' AND historyDate>='$start_date'
-                                    AND historyDate<='$end_date'");
+                                    AND historyDate<='$end_date'
+                                    ORDER BY historyDate DESC");
         $retArr = array();
         $nf = new NutritionixFacade();
         foreach($items as $item)
